@@ -11,8 +11,14 @@ function GameStartScreen() {
                 autoCapitalize="none"
                 autoCorrect={false}
             />
-            <PrimaryButton>확인</PrimaryButton>
-            <PrimaryButton>초기화</PrimaryButton>
+            <View style={styles.buttonsContainer}>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton>확인</PrimaryButton>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton>초기화</PrimaryButton>
+                </View>
+            </View>
         </View>
     )
 };
@@ -21,6 +27,8 @@ export default GameStartScreen;
 
 const styles = StyleSheet.create({
     inputContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: 16,
         marginTop: 100,
         marginHorizontal: 24,
@@ -45,5 +53,11 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    buttonsContainer: {
+        flexDirection: 'row'
+    },
+    buttonContainer: {
+        flex: 1,
     }
 });
