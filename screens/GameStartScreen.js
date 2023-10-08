@@ -3,7 +3,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
 import { Alert } from "react-native";
 
-function GameStartScreen() {
+function GameStartScreen({onPickNumb}) {
     const [enteredNumber, setEnteredNumber] = useState('');
 
     function inputHandler(enteredText) {
@@ -28,7 +28,8 @@ function GameStartScreen() {
             );
             return;
         }
-        console.log('값입력')
+        
+        onPickNumb(chosenNumber);
     };
 
     return (
