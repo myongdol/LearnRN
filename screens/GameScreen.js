@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
 import { Text, View } from "react-native";
+import Title from "../components/Title";
 
 
 function GameScreen() {
     return (
         <View style={styles.screen}>
-            <Text>예상 번호</Text>
+            <Title>예상번호</Title>
             
             <View>
                 <Text>높거나 작거나</Text>
@@ -23,5 +24,5 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 24,
 
-    },
+    }
 });
