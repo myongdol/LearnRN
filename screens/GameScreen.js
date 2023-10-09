@@ -55,10 +55,14 @@ function GameScreen({userNumber, onGameOver}) {
                 {currentGuess}
             </NumberContainer>
             <Card>
-                <InstructionText>높거나 작거나</InstructionText>
-                <View style={styles.PMBtn}>
+                <InstructionText style={styles.InstructionText}>번호가 큰가요? 작은가요?</InstructionText>
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.BtnContainer}>
                     <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
+                    </View>
+                    <View style={styles.BtnContainer}>
                     <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
+                    </View>
                 </View>
             </Card>
             {/* <View>현재 라운드</View> */}
@@ -74,8 +78,13 @@ const styles = StyleSheet.create({
         padding: 24,
 
     },
-    PMBtn: {
-        display: 'flex',
-        justifyContent: 'center',
-    }
+    buttonsContainer: {
+        flexDirection: 'row',
+    },
+    BtnContainer: {
+        flex: 1,
+    },
+    InstructionText: {
+        marginBottom: 12
+    },
 });
