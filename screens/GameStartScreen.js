@@ -3,6 +3,10 @@ import PrimaryButton from "../components/ui/PrimaryButton";
 import { useState } from "react";
 import { Alert } from "react-native";
 import Colors from "../constants/color";
+import Title from "../components/ui/Title";
+import { Text } from "react-native";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 function GameStartScreen({onPickNumb}) {
     const [enteredNumber, setEnteredNumber] = useState('');
@@ -34,7 +38,10 @@ function GameStartScreen({onPickNumb}) {
     };
 
     return (
-        <View style={styles.inputContainer}>
+        <View  style={styles.rootContainer}>
+            <Title>번호 맞추기</Title>
+        <Card>
+            <InstructionText>컴퓨터가 맞춰야 하는 번호를 입력 해주세요.</InstructionText>
             <TextInput 
                 style={styles.numberInput} 
                 maxLength={2} 
@@ -43,7 +50,7 @@ function GameStartScreen({onPickNumb}) {
                 autoCorrect={false}
                 onChangeText={inputHandler}
                 value={enteredNumber}
-            />
+                />
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonContainer}>
                     <PrimaryButton onPress={confirmInputHandler}>확인</PrimaryButton>
@@ -52,6 +59,7 @@ function GameStartScreen({onPickNumb}) {
                     <PrimaryButton onPress={inputResetHandler}>초기화</PrimaryButton>
                 </View>
             </View>
+        </Card>
         </View>
     )
 };
@@ -59,22 +67,10 @@ function GameStartScreen({onPickNumb}) {
 export default GameStartScreen;
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 16,
+    rootContainer: {
+        flex: 1,
         marginTop: 100,
-        marginHorizontal: 24,
-        backgroundColor: Colors.primary800,
-        borderRadius: 12,
-        elevation: 4,
-        shadowColor: 'black',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowRadius: 6,
-        shadowOpacity: 0.25,
+        alignItems: 'center',
     },
     numberInput: {
         height: 50,
