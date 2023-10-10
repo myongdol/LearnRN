@@ -14,10 +14,10 @@ export default NumberContainer;
 const styles = StyleSheet.create({
     container: {
         borderWidth: 4,
-        borderBlockColor: Colors.accent500,
+        borderBlockColor : Colors.accent500,
         padding: 24,
         margin: 24,
-        borderRadius: 8,
+        borderRadius: 12,
         alignItems: 'center',
         justifyContent: 'center',
     },
