@@ -2,9 +2,10 @@ import { Image, StyleSheet, View } from "react-native";
 import Title from "../components/ui/Title";
 import Colors from "../constants/color";
 import { Text } from "react-native";
+import PrimaryButton from "../components/ui/PrimaryButton";
 
 
-function GameOverScreen() {
+function GameOverScreen({ roundNumber, userNumber, onStartNewGame }) {
     return (
         <View style={styles.rootContainer}>
             <Title>Game Over</Title>
@@ -14,11 +15,16 @@ function GameOverScreen() {
                     style={styles.image}
                 />
             </View>
-            <View>
-                <Text>
-                    당신은 X번의 라운드만에 숫자 Y를 맞췄습니다.
+                <Text style={styles.summaryText}>
+                    컴퓨터는 
+                    <Text style={styles.highlight}>
+                        {roundNumber}
+                    </Text>번의 라운드만에 숫자 
+                    <Text style={styles.highlight}>
+                        {userNumber}
+                    </Text>를 맞췄습니다.
                 </Text>
-            </View>
+            <PrimaryButton onPress={onStartNewGame}>새게임</PrimaryButton>
         </View>
     )
 };
@@ -44,5 +50,15 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
+    },
+    summaryText: {
+        fontFamily: 'open-sans',
+        fontSize: 16,
+        textAlign: 'center',
+        marginBottom: 24,
+    },
+    highlight: {
+        fontFamily: 'open-bold',
+        color: Colors.primary500,
     }
 });
