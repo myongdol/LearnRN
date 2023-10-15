@@ -6,7 +6,9 @@ import CategoryGridTitle from '../components/CategoryGridTitle';
 function CartegoriesScreen({navigation}) {
     function renderItem(itemData) {
         function pressHanlder() {
-            navigation.navigate('음식 목록');
+            navigation.navigate('음식 목록', {
+                categoryId: itemData.item.id,
+            });
         };
     
         return (
