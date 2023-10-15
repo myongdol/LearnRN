@@ -1,14 +1,27 @@
 import { StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
+import { FlatList } from "react-native";
+import MealItem from "../components/MealItem";
 
 
 function MealsOverviewScreen({ route}) {
     const catId = route.params.categoryId; // useRoute훅을 사용해도 괜찬음. 
 
+    const displayedMeals = MEALS.filter((mealItem) => {
+        return mealItem.categoryIds.indexOf(catId) >= 0;
+    })
+
+    function renderMealItem(itemData) {
+        return (<MealItem title={itemData.item.title} />)
+    };
 
     return (
         <View style={styles.container}>
-            <Text>음식 목록 - {catId}</Text>
+            <FlatList 
+                data={displayedMeals}
+                keyExtractor={(item) => item.id}
+                renderItem={renderMealItem}
+            />
         </View>
     )
 };
