@@ -31,6 +31,12 @@ export default function App() {
           <Stack.Screen 
             name="음식 목록"
             component={MealsOverviewScreen}
+            options={({route, navigation}) => {
+              const catId = route.params.categoryId;
+              return {
+                title: catId,
+              };
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
