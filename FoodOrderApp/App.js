@@ -4,6 +4,7 @@ import CartegoriesScreen from './screens/CategoriesScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
+import MealDetails from './screens/MealDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,12 +32,16 @@ export default function App() {
           <Stack.Screen 
             name="음식 목록"
             component={MealsOverviewScreen}
-            options={({route, navigation}) => {
-              const catId = route.params.categoryId;
-              return {
-                title: catId,
-              };
-            }}
+            // options={({route, navigation}) => {
+            //   const catId = route.params.categoryId;
+            //   return {
+            //     title: catId,
+            //   };
+            // }}
+          />
+          <Stack.Screen 
+            name="음식 정보"
+            component={MealDetails}
           />
         </Stack.Navigator>
       </NavigationContainer>
