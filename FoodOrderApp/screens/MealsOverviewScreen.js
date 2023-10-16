@@ -4,7 +4,7 @@ import { FlatList } from "react-native";
 import MealItem from "../components/MealItem";
 
 
-function MealsOverviewScreen({ route}) {
+function MealsOverviewScreen({ route }) {
     const catId = route.params.categoryId; // useRoute훅을 사용해도 괜찬음. 
 
     const displayedMeals = MEALS.filter((mealItem) => {
@@ -12,7 +12,20 @@ function MealsOverviewScreen({ route}) {
     })
 
     function renderMealItem(itemData) {
-        return (<MealItem title={itemData.item.title} />)
+        const item = itemData.item
+        const mealItemProps = {
+            title: item.title,
+            imageUrl: item.imageUrl,
+            affordability: item.affordability,
+            complexity: item.complexity,
+            duration: item.duration,
+        }
+
+        return (
+        <MealItem 
+            {...mealItemProps}
+        />
+        );
     };
 
     return (
