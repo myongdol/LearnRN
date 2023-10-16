@@ -14,10 +14,19 @@ export default function App() {
         style='dark'
       />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: '#351401' },
+            headerTintColor: '#ccc',
+            contentStyle: { backgroundColor: '#3f2f25' }
+          }}
+        >
           <Stack.Screen 
             name="음식 카테고리"
             component={CartegoriesScreen}
+            options={{
+              title: '전체 목록',
+            }}
           />
           <Stack.Screen 
             name="음식 목록"
