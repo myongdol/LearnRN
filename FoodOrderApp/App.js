@@ -8,6 +8,7 @@ import MealDetails from './screens/MealDetails';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import FavoritesScreen from './screens/FavoritesScreen';
 import 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons'
 
 
 const Stack = createNativeStackNavigator();
@@ -20,13 +21,26 @@ function DrawerNavigator() {
       screenOptions={{
         headerStyle: { backgroundColor: '#351401' },
         headerTintColor: '#ccc',
-        contentStyle: { backgroundColor: '#3f2f25' }
+        contentStyle: { backgroundColor: '#3f2f25' },
+        drawerContentStyle: {backgroundColor: '#351401'},
+        drawerInactiveTintColor: 'white',
+        drawerActiveTintColor: '#351401',
+        drawerActiveBackgroundColor: '#c4baa1'
       }}
     >
       <Drawer.Screen name="카테고리" component={CartegoriesScreen} options={{
-        title: '전체목록'
+        title: '전체목록',
+        drawerIcon: ({color, size}) => (
+          <Ionicons name="list" color={color} size={size}/>
+        ),
       }}/>
-      <Drawer.Screen name="즐겨찾기" component={FavoritesScreen}/>
+      <Drawer.Screen name="즐겨찾기" component={FavoritesScreen}
+        options={{
+          drawerIcon: ({color, size}) => (
+            <Ionicons name="star" color={color} size={size}/>
+          ),
+        }}
+      />
     </Drawer.Navigator>
   )
 };
