@@ -7,6 +7,7 @@ import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import MealDetails from './screens/MealDetails';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import FavoritesScreen from './screens/FavoritesScreen';
+import 'react-native-gesture-handler';
 
 
 const Stack = createNativeStackNavigator();
@@ -14,8 +15,17 @@ const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="카테고리" component={CartegoriesScreen}/>
+    <Drawer.Navigator 
+      useLegacyImplementation={true}
+      screenOptions={{
+        headerStyle: { backgroundColor: '#351401' },
+        headerTintColor: '#ccc',
+        contentStyle: { backgroundColor: '#3f2f25' }
+      }}
+    >
+      <Drawer.Screen name="카테고리" component={CartegoriesScreen} options={{
+        title: '전체목록'
+      }}/>
       <Drawer.Screen name="즐겨찾기" component={FavoritesScreen}/>
     </Drawer.Navigator>
   )
@@ -40,7 +50,8 @@ export default function App() {
             name="Drawer"
             component={DrawerNavigator}
             options={{
-              title: '전체 목록',
+              title: '전체목록',
+              headerShown: false
             }}
           />
           <Stack.Screen 
