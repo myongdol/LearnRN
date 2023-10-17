@@ -4,6 +4,7 @@ import {MEALS} from '../data/dummy-data'
 import MealInfo from '../components/MealInfo';
 import Subtitle from '../components/MealDetail/Subtitle';
 import List from '../components/MealDetail/List';
+import IconButton from '../components/IconButton';
 
 function MealDetails({ route, navigation }) {
 
@@ -19,7 +20,7 @@ function MealDetails({ route, navigation }) {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => {
-                return <Button title="버튼" onPress={HeaderButtonHandler}/>
+                return <IconButton icon="star" color='white' onPress={HeaderButtonHandler}/>
             }
         })
     }, [navigation, HeaderButtonHandler]);
