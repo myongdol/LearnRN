@@ -1,16 +1,28 @@
-import React from 'react';
-import { Text, StyleSheet, View, Image, ScrollView } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import { Text, StyleSheet, View, Image, ScrollView, Button } from 'react-native';
 import {MEALS} from '../data/dummy-data'
 import MealInfo from '../components/MealInfo';
 import Subtitle from '../components/MealDetail/Subtitle';
 import List from '../components/MealDetail/List';
 
-function MealDetails({ route }) {
+function MealDetails({ route, navigation }) {
 
     const mealId = route.params.mealId;
     if (!route) return <Text>음식 정보가 없습니다.</Text>;
 
     const selectedMeal = MEALS.find((meal)=> meal.id === mealId);
+
+    function HeaderButtonHandler() {
+        console.log('헤더버튼')
+    };
+    
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return <Button title="버튼" onPress={HeaderButtonHandler}/>
+            }
+        })
+    }, [navigation, HeaderButtonHandler]);
 
     return (
         <ScrollView style={styles.rootContainer}>
