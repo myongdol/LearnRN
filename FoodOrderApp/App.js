@@ -5,8 +5,22 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import MealDetails from './screens/MealDetails';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import FavoritesScreen from './screens/FavoritesScreen';
+
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="카테고리" component={CartegoriesScreen}/>
+      <Drawer.Screen name="즐겨찾기" component={FavoritesScreen}/>
+    </Drawer.Navigator>
+  )
+};
+
 
 export default function App() {
   return (
@@ -23,8 +37,8 @@ export default function App() {
           }}
         >
           <Stack.Screen 
-            name="음식 카테고리"
-            component={CartegoriesScreen}
+            name="Drawer"
+            component={DrawerNavigator}
             options={{
               title: '전체 목록',
             }}
