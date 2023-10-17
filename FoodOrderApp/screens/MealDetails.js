@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, StyleSheet, View, Image } from 'react-native';
+import { Text, StyleSheet, View, Image, ScrollView } from 'react-native';
 import {MEALS} from '../data/dummy-data'
 import MealInfo from '../components/MealInfo';
+import Subtitle from '../components/MealDetail/Subtitle';
+import List from '../components/MealDetail/List';
 
 function MealDetails({ route }) {
 
@@ -11,35 +13,61 @@ function MealDetails({ route }) {
     const selectedMeal = MEALS.find((meal)=> meal.id === mealId);
 
     return (
-        <>
+        <ScrollView style={styles.rootContainer}>
             <View>
-                <Image source={{uri: selectedMeal.imageUrl}}/>
-                <Text>
+                <Image source={{uri: selectedMeal.imageUrl}} style={styles.image}/>
+                <Text style={styles.title}>
                     {selectedMeal.title}
                 </Text>
                 <MealInfo 
                     duration={selectedMeal.duration}
                     complexity={selectedMeal.complexity}
                     affordability={selectedMeal.affordability}
+                    textStyle={styles.detailText}
                 />
-                <View>
-                    <Text>재료</Text>
-                    {selectedMeal.ingredients.map(ingredient => (
-                    <Text key={ingredient}>{ingredient}</Text>
-                    ))}
-                    <Text>요리순서</Text>
-                    {selectedMeal.steps.map(step => (
-                    <Text key={step}>{step}</Text>
-                    ))}
-                    <Text>요리난이도</Text>
+                <View style={styles.listOuterContainer}>
+                    <View style={styles.listContainer}>
+                        <Subtitle>
+                            재료
+                        </Subtitle>
+                        <List data={selectedMeal.ingredients}/>
+                        <Subtitle>
+                            순서
+                        </Subtitle>
+                        <List data={selectedMeal.steps}/>
+                    </View>
                 </View>
             </View>
-        </>
+        </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({
-
-});
 
 export default MealDetails;
+
+
+const styles = StyleSheet.create({
+    rootContainer:{
+        marginBottom: 32
+    },
+    image: {
+        width: '100%',
+        height: 300,
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: 24,
+        margin: 8,
+        textAlign: 'center',
+        color: 'white',
+    },
+    detailText: {
+        color: 'white',
+    },
+    listContainer: {
+        width: '80%'
+    },
+    listOuterContainer: {
+        alignItems: 'center'
+    }
+});
