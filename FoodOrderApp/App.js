@@ -9,6 +9,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import FavoritesScreen from './screens/FavoritesScreen';
 import 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'
+import FavoritesContextProvider from './store/context/favorites-context';
 
 
 const Stack = createNativeStackNavigator();
@@ -52,6 +53,7 @@ export default function App() {
       <StatusBar 
         style='dark'
       />
+      <FavoritesContextProvider>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -78,6 +80,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </FavoritesContextProvider>
     </>
   );
 }
