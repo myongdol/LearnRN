@@ -1,29 +1,43 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { Text, StyleSheet, View, Image, ScrollView, Button } from 'react-native';
 import {MEALS} from '../data/dummy-data'
 import MealInfo from '../components/MealInfo';
 import Subtitle from '../components/MealDetail/Subtitle';
 import List from '../components/MealDetail/List';
 import IconButton from '../components/IconButton';
+import { FavoritesContext } from '../store/context/favorites-context';
 
 function MealDetails({ route, navigation }) {
+    const favoriteMealsCtx = useContext(FavoritesContext);
 
     const mealId = route.params.mealId;
     if (!route) return <Text>음식 정보가 없습니다.</Text>;
 
     const selectedMeal = MEALS.find((meal)=> meal.id === mealId);
 
-    function HeaderButtonHandler() {
-        console.log('헤더버튼')
+    const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
+
+    function favoriteStatusHandler() {
+        if (mealIsFavorite) {
+            favoriteMealsCtx.removeFavorite(mealId);
+        } else {
+            favoriteMealsCtx.addFavorite(mealId);
+        }
     };
     
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => {
-                return <IconButton icon="star" color='white' onPress={HeaderButtonHandler}/>
+                return (
+                <IconButton
+                  icon={mealIsFavorite ? 'star' : 'star-outline'}
+                  color='white'
+                  onPress={favoriteStatusHandler}
+                />
+                )
             }
         })
-    }, [navigation, HeaderButtonHandler]);
+    }, [navigation, favoriteStatusHandler]);
 
     return (
         <ScrollView style={styles.rootContainer}>

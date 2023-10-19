@@ -10,7 +10,7 @@ function FavoritesContextProvider({children}) {
     const [favoriteMealIds, setFavoriteMealIds] = useState([]);
     
     function addFavorite(id) {
-        setFavoriteMealIds((current) => [...currentFavIds, id]);
+        setFavoriteMealIds((currentFavIds) => [...currentFavIds, id]);
     };
 
     function removeFavorite(id) {
