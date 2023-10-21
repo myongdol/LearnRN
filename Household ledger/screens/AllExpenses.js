@@ -1,11 +1,11 @@
-import { Text } from "react-native";
+import ExpensesOutput from "../components/ExpensesOutput";
 
 
 function AllExpenses () {
     return (
-        <Text>
-            AllExpenses 
-        </Text>
+        <ExpensesOutput 
+            expensesPeriod="total"
+        />
     )
 };
 

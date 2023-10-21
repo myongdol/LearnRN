@@ -1,11 +1,11 @@
-import { Text } from "react-native";
+import ExpensesOutput from "../components/ExpensesOutput";
 
 
 function RecentExpenses() {
     return (
-        <Text>
-            RecentExpenses 
-        </Text>
+        <ExpensesOutput 
+            expensesPeriod="최근 7일"
+        />
     )
 };
 
