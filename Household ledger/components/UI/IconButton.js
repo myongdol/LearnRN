@@ -9,7 +9,7 @@ function IconButton({icon, size, color, onPress}) {
             <View style={STYLES.buttonContainer}>
                 <Ionicons 
                     name={icon}
-                    soze={size}
+                    size={size}
                     color={color}
                 />
             </View>

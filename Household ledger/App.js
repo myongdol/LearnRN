@@ -16,15 +16,19 @@ const BOTTOM_TAB = createBottomTabNavigator();
 function ExpensesOverview() {
   return (
   <BOTTOM_TAB.Navigator 
-  screenOptions={{
+  screenOptions={({navigation}) => ({
     headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
     headerTintColor: 'white',
     tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
     tabBarActiveTintColor: GlobalStyles.colors.accent500,
     headerRight: ({tintColor}) => (
-      <IconButton icon="add" size={32} color={tintColor} onPress={() => {}}/>
-    )
-  }}>
+      <IconButton icon="add" size={32} color={tintColor} onPress={() => {
+        navigation.navigate('비용관리');
+      }}/>
+    ),
+
+  })}
+  >
     <BOTTOM_TAB.Screen 
       name="지출 내용"
       component={RecentExpenses}
