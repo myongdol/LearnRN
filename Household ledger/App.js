@@ -60,7 +60,12 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <STACK.Navigator>
+        <STACK.Navigator
+          screenOptions={{
+            headerStyle: {backgroundColor: GlobalStyles.colors.primary500},
+            headerTintColor: 'white'
+          }}
+        >
           <STACK.Screen 
             name="전체지출"
             component={ExpensesOverview}
@@ -69,6 +74,9 @@ export default function App() {
           <STACK.Screen 
             name="비용관리"
             component={ManageExpense}
+            options={{
+              presentation: 'modal',  // only  ios
+            }}
           />
         </STACK.Navigator>
       </NavigationContainer>
