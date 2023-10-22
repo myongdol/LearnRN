@@ -7,6 +7,7 @@ import RecentExpenses from './screens/RecentExpenses';
 import AllExpenses from './screens/AllExpenses';
 import { GlobalStyles } from './constants/styles';
 import { Ionicons } from '@expo/vector-icons';
+import IconButton from './components/UI/IconButton';
 
 
 const STACK = createNativeStackNavigator();
@@ -20,6 +21,9 @@ function ExpensesOverview() {
     headerTintColor: 'white',
     tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
     tabBarActiveTintColor: GlobalStyles.colors.accent500,
+    headerRight: ({tintColor}) => (
+      <IconButton icon="add" size={32} color={tintColor} onPress={() => {}}/>
+    )
   }}>
     <BOTTOM_TAB.Screen 
       name="지출 내용"
@@ -53,8 +57,15 @@ export default function App() {
       <StatusBar style="auto" />
       <NavigationContainer>
         <STACK.Navigator>
-          <STACK.Screen name="전체지출" component={ExpensesOverview} />
-          <STACK.Screen name="비용관리" component={ManageExpense} />
+          <STACK.Screen 
+            name="전체지출"
+            component={ExpensesOverview}
+            options={{headerShown: false}}
+          />
+          <STACK.Screen 
+            name="비용관리"
+            component={ManageExpense}
+          />
         </STACK.Navigator>
       </NavigationContainer>
     </>

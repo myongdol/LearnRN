@@ -4,15 +4,18 @@ import { getFormattedDate } from "../util/date";
 
 
 function ExpenseItem({description, amount, date}){
+    function expensePressHandler() {}
+
+
     return (
-        <Pressable>
-            <View style={styles.expenseItem}>
+        <Pressable onPress={expensePressHandler} style={({pressed}) => pressed && STYLES.pressed}>
+            <View style={STYLES.expenseItem}>
                 <View>
-                    <Text style={[styles.textBase, styles.description]}>{description}</Text>
-                    <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
+                    <Text style={[STYLES.textBase, STYLES.description]}>{description}</Text>
+                    <Text style={STYLES.textBase}>{getFormattedDate(date)}</Text>
                 </View>
-                <View style={styles.amountContainer}>
-                    <Text style={styles.amount}>{amount.toFixed(2)}</Text>
+                <View style={STYLES.amountContainer}>
+                    <Text style={STYLES.amount}>{amount.toFixed(2)}</Text>
                 </View>
             </View>
         </Pressable>
@@ -21,7 +24,7 @@ function ExpenseItem({description, amount, date}){
 
 export default ExpenseItem;
 
-const styles = StyleSheet.create({
+const STYLES = StyleSheet.create({
     expenseItem: {
         padding: 12,
         marginVertical: 8,
@@ -55,5 +58,8 @@ const styles = StyleSheet.create({
     amount: {
         color: GlobalStyles.colors.primary500,
         fontWeight: 'bold',
+    },
+    pressed: {
+        opacity: 0.75
     }
 });
