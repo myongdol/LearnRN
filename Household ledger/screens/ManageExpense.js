@@ -2,6 +2,7 @@ import { useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
+import Button from "../components/UI/Button";
 
 
 function ManageExpense({route, navigation}) {
@@ -15,11 +16,27 @@ function ManageExpense({route, navigation}) {
     }, [navigation, IS_EDITING]);
 
     function deleteHandler() {
-        console.log('삭제!')
+        navigation.goBack();
+    };
+    
+    function cancelHandler() {
+        navigation.goBack();
+    };
+
+    function confirmHandler() {
+        navigation.goBack();
     };
 
     return (
         <View style={STYLES.container}>
+            <View style={STYLES.buttons}>
+                <Button onPress={confirmHandler} style={STYLES.button}>
+                    {IS_EDITING ? '확인' : '추가'}
+                </Button>
+                <Button mode='flat' onPress={cancelHandler} style={STYLES.button}>
+                    취소
+                </Button>
+            </View>
             {IS_EDITING && (
                 <View style={STYLES.deleteContainer}>
                     <IconButton
@@ -49,5 +66,14 @@ const STYLES = StyleSheet.create({
         borderTopColor: GlobalStyles.colors.primary200,
         alignItems: 'center',
         
+    },
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    button: {
+        minWidth: 120,
+        marginHorizontal: 8,
     }
 })
