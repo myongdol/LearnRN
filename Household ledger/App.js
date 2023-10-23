@@ -8,6 +8,7 @@ import AllExpenses from './screens/AllExpenses';
 import { GlobalStyles } from './constants/styles';
 import { Ionicons } from '@expo/vector-icons';
 import IconButton from './components/UI/IconButton';
+import ExpensesContextProvider from './store/expenses-context';
 
 
 const STACK = createNativeStackNavigator();
@@ -58,28 +59,30 @@ function ExpensesOverview() {
 export default function App() {
   return (
     <>
-      <StatusBar style="auto" />
-      <NavigationContainer>
-        <STACK.Navigator
-          screenOptions={{
-            headerStyle: {backgroundColor: GlobalStyles.colors.primary500},
-            headerTintColor: 'white'
-          }}
-        >
-          <STACK.Screen 
-            name="전체지출"
-            component={ExpensesOverview}
-            options={{headerShown: false}}
-          />
-          <STACK.Screen 
-            name="비용관리"
-            component={ManageExpense}
-            options={{
-              presentation: 'modal',  // only  ios
+      <StatusBar style="light" />
+      <ExpensesContextProvider>
+        <NavigationContainer>
+          <STACK.Navigator
+            screenOptions={{
+              headerStyle: {backgroundColor: GlobalStyles.colors.primary500},
+              headerTintColor: 'white'
             }}
-          />
-        </STACK.Navigator>
-      </NavigationContainer>
+          >
+            <STACK.Screen 
+              name="전체지출"
+              component={ExpensesOverview}
+              options={{headerShown: false}}
+            />
+            <STACK.Screen 
+              name="비용관리"
+              component={ManageExpense}
+              options={{
+                presentation: 'modal',  // only  ios
+              }}
+            />
+          </STACK.Navigator>
+        </NavigationContainer>
+      </ExpensesContextProvider>
     </>
   );
 }
