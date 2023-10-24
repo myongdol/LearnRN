@@ -3,7 +3,7 @@ import { GlobalStyles } from "../../constants/styles";
 
 
 
-function Input({ label, textInputConfig }) {
+function Input({ label, textInputConfig, style }) {
 
     let inputStyles = [STYLES.input];
     if(textInputConfig && textInputConfig.multiline) {
@@ -11,7 +11,7 @@ function Input({ label, textInputConfig }) {
     }
 
     return (
-        <View style={STYLES.inputContainer}>
+        <View style={[STYLES.inputContainer, style]}>
             <Text style={STYLES.label}>{label}</Text>
             <TextInput style={inputStyles}
                 {...textInputConfig}
