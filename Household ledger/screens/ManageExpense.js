@@ -13,6 +13,10 @@ function ManageExpense({route, navigation}) {
 
     const EXPENSE_CTX = useContext(EXPENSES_CONTEXT);
 
+    const SELECT_EXPENSE = EXPENSE_CTX.expenses.find(
+        (expense) => expense.id === EDITED_EXPENSE_ID
+        );
+
     useLayoutEffect(() => {
         navigation.setOptions({
             title: IS_EDITING ? '수정 하기' : '추가 하기'
@@ -28,39 +32,25 @@ function ManageExpense({route, navigation}) {
         navigation.goBack();
     };
 
-    function confirmHandler() {
+    function confirmHandler(expenseData) {
         if (IS_EDITING) {
             EXPENSE_CTX.updateExpense(
-                EDITED_EXPENSE_ID,
-                {
-                    description: '테스트!!!!!!',
-                    amount: 999, 
-                    date: new Date('2023-10-21')
-                }
+                EDITED_EXPENSE_ID, expenseData
             );
         } else {
-            EXPENSE_CTX.addExpense(
-                {
-                    description: '테스트',
-                    amount: 999, 
-                    date: new Date('2023-10-21')
-                }
-            );
+            EXPENSE_CTX.addExpense(expenseData);
         } 
         navigation.goBack();
     };
 
     return (
         <View style={STYLES.container}>
-            <ExpenseForm />
-            <View style={STYLES.buttons}>
-                <Button onPress={confirmHandler} style={STYLES.button}>
-                    {IS_EDITING ? '확인' : '추가'}
-                </Button>
-                <Button mode='flat' onPress={cancelHandler} style={STYLES.button}>
-                    취소
-                </Button>
-            </View>
+            <ExpenseForm 
+                submitButtonLabel={IS_EDITING ? "변경" : "확인"}
+                onCancel={cancelHandler} 
+                onSubmit={confirmHandler}
+                defalutValue={SELECT_EXPENSE}
+            />
             {IS_EDITING && (
                 <View style={STYLES.deleteContainer}>
                     <IconButton
@@ -91,13 +81,4 @@ const STYLES = StyleSheet.create({
         alignItems: 'center',
         
     },
-    buttons: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: 'center',
-    },
-    button: {
-        minWidth: 120,
-        marginHorizontal: 8,
-    }
 })

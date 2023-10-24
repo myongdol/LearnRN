@@ -1,24 +1,36 @@
 import { StyleSheet, Text, View } from "react-native";
 import Input from './Input'
 import { useState } from "react";
+import Button from "../UI/Button";
+import { getFormattedDate } from "../../util/date";
 
 
-function ExpenseForm() {
+function ExpenseForm({submitButtonLabel, onCancel, onSubmit, defalutValue}) {
 
     const [INPUT_VALUE, setINPUT_VALUE] = useState({
-        amount: '',
-        date: '',
-        description: ''
+        amount: defalutValue ? defalutValue.amount.toString() : '',
+        date: defalutValue ? getFormattedDate(defalutValue.date) : '',
+        description: defalutValue ? defalutValue.description : ''
     });
 
 
-    function inputChangeHandler(inputIdentifier, enteredValue) {
+    function inputChangeHandler(inputIdentifier, enteredValue, defalutValue) {
         setINPUT_VALUE((curInputValues) => {
             return {
                 ...curInputValues,
                 [inputIdentifier]: enteredValue
             }
         });
+    };
+
+    function submitHandler () {
+        const EXPENSE_DATA = {
+            amount: +INPUT_VALUE.amount,
+            date: new Date(INPUT_VALUE.date),
+            description: INPUT_VALUE.description
+        };
+
+        onSubmit(EXPENSE_DATA);
     };
 
 
@@ -45,6 +57,14 @@ function ExpenseForm() {
                 onChangeText: inputChangeHandler.bind(this, 'description'),
                 value: INPUT_VALUE.description,
             }}/>
+            <View style={STYLES.buttons}>
+                <Button onPress={submitHandler} style={STYLES.button}>
+                    {submitButtonLabel}
+                </Button>
+                <Button mode='flat' onPress={onCancel} style={STYLES.button}>
+                    취소
+                </Button>
+            </View>
         </View>
     )
 };
@@ -68,5 +88,14 @@ const STYLES = StyleSheet.create({
     },
     rowInput: {
         flex: 1,
+    },
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    button: {
+        minWidth: 120,
+        marginHorizontal: 8,
     }
 })
