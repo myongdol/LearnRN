@@ -4,6 +4,7 @@ import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
 import Button from "../components/UI/Button";
 import { EXPENSES_CONTEXT } from "../store/expenses-context";
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
 
 function ManageExpense({route, navigation}) {
@@ -51,6 +52,7 @@ function ManageExpense({route, navigation}) {
 
     return (
         <View style={STYLES.container}>
+            <ExpenseForm />
             <View style={STYLES.buttons}>
                 <Button onPress={confirmHandler} style={STYLES.button}>
                     {IS_EDITING ? '확인' : '추가'}
