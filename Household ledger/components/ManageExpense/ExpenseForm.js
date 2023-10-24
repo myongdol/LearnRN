@@ -23,8 +23,8 @@ function ExpenseForm() {
             />
             <Input label="설명" textInputConfig={{
                 multiline: true,
-                autuCapitalize: 'none',
-                autoCoreect: false,
+                // autuCapitalize: 'none',
+                // autoCoreect: false,
             }}/>
         </View>
     )
