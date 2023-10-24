@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import Input from './Input'
 import { useState } from "react";
 import Button from "../UI/Button";
@@ -29,6 +29,15 @@ function ExpenseForm({submitButtonLabel, onCancel, onSubmit, defalutValue}) {
             date: new Date(INPUT_VALUE.date),
             description: INPUT_VALUE.description
         };
+
+        const AMOUNT_IS_VALID = !isNaN(EXPENSE_DATA.amount) && EXPENSE_DATA.amount > 0;
+        const DATA_IS_VALID = EXPENSE_DATA.date.toString() !== 'Invalid Date';
+        const DESCRIPTION_IS_VALID = EXPENSE_DATA.description.trim().length > 0;
+
+        if(!AMOUNT_IS_VALID || !DATA_IS_VALID || !DESCRIPTION_IS_VALID) {
+            Alert.alert('주의', '입력을 다시 확인 해주세요.');
+            return;
+        }
 
         onSubmit(EXPENSE_DATA);
     };
