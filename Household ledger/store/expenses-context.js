@@ -6,6 +6,7 @@ import { DUMMY_EXPENSES } from '../assets/data/dummyData';
 export const EXPENSES_CONTEXT = createContext({
     expenses: [],
     addExpense: ({description, amount, date}) => {},
+    setExpenses: (expenses) => {},
     deleteExpense: (id) => {},
     updateExpense: (id, {description, amount, date}) => {},
 });
@@ -15,7 +16,9 @@ function expensesReducer(state, action) {
     switch (action.type) {
         case 'ADD':
             const ID = new Date().toISOString() + Math.random().toString();
-            return [{...action.payload, id: ID}, ...state]
+            return [{...action.payload, id: ID}, ...state];
+        case 'SET':
+            return action.payload;
         case 'UPDATE':
             const UADATE_EXPENSE_INDEX = state.findIndex(
                   (expense) => expense.id === action.payload.id
@@ -39,15 +42,22 @@ function ExpensesContextProvider({children}) {
     function addExpense(expenseData) {
         dispatch({ type: 'ADD', payload: expenseData });
     };
+
+    function setExpenses(expenses) {
+        dispatch({ type: 'SET', payload: expenses });
+    };
+
     function deleteExpense(id) {
         dispatch({ type: 'DELETE', payload: id })
     };
+
     function updateExpense(id, expenseData) {
         dispatch({ type: 'UPDATE', payload: { id: id, data: expenseData }})
     }
 
     const VALUE = {
         expenses: expensesState,
+        setExpenses: setExpenses,
         addExpense: addExpense,
         deleteExpense: deleteExpense,
         updateExpense: updateExpense,
