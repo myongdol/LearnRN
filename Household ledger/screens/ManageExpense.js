@@ -2,9 +2,9 @@ import { useContext, useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
-import Button from "../components/UI/Button";
 import { EXPENSES_CONTEXT } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import { storeExpense } from "../util/http";
 
 
 function ManageExpense({route, navigation}) {
@@ -38,6 +38,7 @@ function ManageExpense({route, navigation}) {
                 EDITED_EXPENSE_ID, expenseData
             );
         } else {
+            storeExpense(expenseData);
             EXPENSE_CTX.addExpense(expenseData);
         } 
         navigation.goBack();
