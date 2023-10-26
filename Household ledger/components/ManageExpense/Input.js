@@ -3,16 +3,20 @@ import { GlobalStyles } from "../../constants/styles";
 
 
 
-function Input({ label, textInputConfig, style }) {
+function Input({ label, textInputConfig, style, invalid }) {
 
     let inputStyles = [STYLES.input];
     if(textInputConfig && textInputConfig.multiline) {
         inputStyles.push(STYLES.inputMultiline)
     }
 
+    if (invalid) {
+        inputStyles.push(STYLES.invalidInput);
+    }
+
     return (
         <View style={[STYLES.inputContainer, style]}>
-            <Text style={STYLES.label}>{label}</Text>
+            <Text style={[STYLES.label, invalid && STYLES.invalidLabel]}>{label}</Text>
             <TextInput style={inputStyles}
                 {...textInputConfig}
             />
@@ -42,5 +46,11 @@ const STYLES = StyleSheet.create({
     inputMultiline:{
         minHeight: 100,
         textAlignVertical: 'top',
-    }
+    },
+    invalidLabel: {
+        color: GlobalStyles.colors.error500,
+    },
+    invalidInput: {
+        backgroundColor: GlobalStyles.colors.error50
+    },
 });
