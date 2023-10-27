@@ -6,11 +6,13 @@ import { EXPENSES_CONTEXT } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import { deleteExpense, storeExpense, updateExpense } from "../util/http";
 import LoadingOverlay from "../components/UI/LoadingOVerlay";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
 
 
 function ManageExpense({route, navigation}) {
     const EDITED_EXPENSE_ID = route.params?.expenseId;
     const IS_EDITING = !!EDITED_EXPENSE_ID;
+    const [ERROR, setERROR] = useState();
 
     const EXPENSE_CTX = useContext(EXPENSES_CONTEXT);
 
@@ -27,10 +29,15 @@ function ManageExpense({route, navigation}) {
     }, [navigation, IS_EDITING]);
 
     async function deleteHandler() {
-        setIS_SUBMIT(true)
-        await deleteExpense(EDITED_EXPENSE_ID);
-        navigation.goBack();
-        EXPENSE_CTX.deleteExpense(EDITED_EXPENSE_ID);
+        setIS_SUBMIT(true);
+        try {
+            await deleteExpense(EDITED_EXPENSE_ID);
+            navigation.goBack();
+            EXPENSE_CTX.deleteExpense(EDITED_EXPENSE_ID);
+        } catch (ERROR) {
+            setERROR('삭제할 수 없습니다 다음에 다시 시도하세요.');
+            setIS_SUBMIT(false);
+        }
     };
     
     function cancelHandler() {
@@ -39,21 +46,31 @@ function ManageExpense({route, navigation}) {
 
     async function confirmHandler(expenseData) {
         setIS_SUBMIT(true);
-        if (IS_EDITING) {
-            EXPENSE_CTX.updateExpense(
-                EDITED_EXPENSE_ID, expenseData
-            );
-            updateExpense(EDITED_EXPENSE_ID, expenseData);
-        } else {
-            const ID = await storeExpense(expenseData);
-            EXPENSE_CTX.addExpense({...expenseData, id: ID});
-        } 
-        navigation.goBack();
+        try {
+            if (IS_EDITING) {
+                EXPENSE_CTX.updateExpense(
+                    EDITED_EXPENSE_ID, expenseData
+                );
+                await updateExpense(EDITED_EXPENSE_ID, expenseData);
+            } else {
+                const ID = await storeExpense(expenseData);
+                EXPENSE_CTX.addExpense({...expenseData, id: ID});
+            } 
+            navigation.goBack();
+        } catch (ERROR) {
+            setERROR('데이터를 저장할 수 없습니다. 다음에 다시 시도해주세요.');
+            setIS_SUBMIT(false);
+        }
+    };
+
+    if (ERROR && !IS_SUBMIT) {
+        return <ErrorOverlay message={ERROR}/>
     };
 
     if (IS_SUBMIT) {
         return <LoadingOverlay />
-    }
+    };
+
 
     return (
         <View style={STYLES.container}>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SERVER_URL = 'https://reactnative-51dc6-default-rtdb.firebaseio.com'
+const SERVER_URL = 'https://reactnative-51dc6-default-rtdb.firebaseio.comm'
 
 export async function storeExpense(expenseData) {
     const RESPONSE = await axios.post(
