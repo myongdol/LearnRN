@@ -2,11 +2,13 @@ import axios from "axios";
 
 const SERVER_URL = 'https://reactnative-51dc6-default-rtdb.firebaseio.com'
 
-export function storeExpense(expenseData) {
-    axios.post(
+export async function storeExpense(expenseData) {
+    const RESPONSE = await axios.post(
     SERVER_URL + '/expenses.json',
     expenseData
     );
+    const ID = RESPONSE.data.name;
+    return ID
 };
 
 export async function fetchExpense() {

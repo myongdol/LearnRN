@@ -32,14 +32,14 @@ function ManageExpense({route, navigation}) {
         navigation.goBack();
     };
 
-    function confirmHandler(expenseData) {
+    async function confirmHandler(expenseData) {
         if (IS_EDITING) {
             EXPENSE_CTX.updateExpense(
                 EDITED_EXPENSE_ID, expenseData
             );
         } else {
-            storeExpense(expenseData);
-            EXPENSE_CTX.addExpense(expenseData);
+            const ID = await storeExpense(expenseData);
+            EXPENSE_CTX.addExpense({...expenseData, id: ID});
         } 
         navigation.goBack();
     };
