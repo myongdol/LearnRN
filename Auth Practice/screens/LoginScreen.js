@@ -2,6 +2,7 @@ import { useState } from 'react';
 import AuthContent from '../components/Auth/AuthContent';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 import { login } from '../util/auth';
+import { Alert } from 'react-native';
 
 function LoginScreen() {
 
@@ -9,7 +10,11 @@ function LoginScreen() {
 
   async function loginHandler({email, password}) {
     setIsAuth(true);
-    await login(email, password);
+    try {
+      await login(email, password);
+    } catch (error) {
+      Alert.alert('에러!@!@!#@#!', '로그인 실패!!');
+    }
     setIsAuth(false);
   };
 

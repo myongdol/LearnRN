@@ -8,7 +8,11 @@ function SignupScreen() {
 
   async function signupHandler({email, password}) {
     setIsAuth(true);
-    await createUser(email, password);
+    try {
+      await createUser(email, password);
+    } catch (error) {
+      Alert.alert('에러!@!@!#@#!', '회원가입 실패!!');
+    }
     setIsAuth(false);
   };
 
