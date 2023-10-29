@@ -18,8 +18,8 @@ function LoginScreen() {
       authCtx.authenticate(token);
     } catch (error) {
       Alert.alert('에러!@!@!#@#!', '로그인 실패!!');
+      setIsAuth(false);
     }
-    setIsAuth(false);
   };
 
   if (isAuth) {
