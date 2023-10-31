@@ -1,12 +1,15 @@
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import OutlineButton from "../UI/OutlineButton";
 import { Colors } from "../../constants/colors";
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from "expo-location";
+import { useState } from "react";
+import { getMapPreview } from "../../Util/location";
 
 
 
 function LocationPicker() {
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
+    const [pickedLocation, setPickedLocation] = useState();
 
     async function verifyPermissions() {
         if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -32,16 +35,31 @@ function LocationPicker() {
         }
 
         const location = await getCurrentPositionAsync();
-        console.log(location);
+        setPickedLocation({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude
+        });
     };
 
     function pickOnMapHandler() {
 
     };
 
+    let locationPreview = <Text>위치정보가 아직 없습니다.</Text>
+    if (pickedLocation) {
+        locationPreview = (
+            <Image
+                style={STYELS.mapImage} 
+                source={{uri: getMapPreview(pickedLocation.lat, pickedLocation.lng)}}
+            />
+        )
+    }
+
     return (
         <View>
-            <View style={STYELS.mapPreview}></View>
+            <View style={STYELS.mapPreview}>
+                {locationPreview}
+            </View>
             <View style={STYELS.actions}>
                 <OutlineButton 
                     icon="location"
@@ -78,5 +96,9 @@ const STYELS = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-    }
+    },
+    mapImage: {
+        width: '100%',
+        height: '100%'
+    },
 });
