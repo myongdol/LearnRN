@@ -1,13 +1,38 @@
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import OutlineButton from "../UI/OutlineButton";
 import { Colors } from "../../constants/colors";
+import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from "expo-location";
 
 
 
 function LocationPicker() {
+    const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
 
-    function getLocationHander() {
+    async function verifyPermissions() {
+        if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
+            const permissionResponse = await requestPermission();
 
+            return permissionResponse.granted;
+        };
+
+        if (locationPermissionInformation.status === PermissionStatus.DENIED) {
+            Alert.alert('권한이 없습니다.', '권한요청 팝업이 뜨면 허용해주세요.');
+
+            return false;
+        };
+        
+        return true;
+    };
+
+    async function getLocationHander() {
+        const hasPermission = await verifyPermissions();
+        
+        if(!hasPermission) {
+            return;
+        }
+
+        const location = await getCurrentPositionAsync();
+        console.log(location);
     };
 
     function pickOnMapHandler() {
