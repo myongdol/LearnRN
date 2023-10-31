@@ -5,6 +5,7 @@ import AllPlaces from './screens/AllPlaces';
 import AddPlace from './screens/AddPlace';
 import IconButton from './components/UI/IconButton';
 import { Colors } from './constants/colors';
+import Map from './screens/Map';
 
 
 const STACK = createNativeStackNavigator();
@@ -37,6 +38,7 @@ export default function App() {
           <STACK.Screen name="장소추가" component={AddPlace} options={{
             title: '장소를 추가하세요.',
           }} />
+          <STACK.Screen name="Map" component={Map} />
         </STACK.Navigator>
       </NavigationContainer>
     </>
