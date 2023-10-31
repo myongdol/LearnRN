@@ -1,8 +1,11 @@
-import { Alert, Button, View } from "react-native";
+import { Alert, Button, Image, StyleSheet, Text, View } from "react-native";
 import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
+import { useState } from "react";
+import { Colors } from "../../constants/colors";
 
 
 function ImagePicker() {
+    const [pickedImage, setPickedImage] = useState();
     const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
 
     async function verifyPermissions() {
@@ -33,13 +36,20 @@ function ImagePicker() {
         aspect: [16, 9], 
         quality: 0.5,
        });
-       console.log(image);
+       
+       setPickedImage(image.uri);
     };
+
+    let imagePreview = <Text>촬영된 사진이 없습니다.</Text>;
+    
+    if(pickedImage) {
+        imagePreview = <Image style={STYELS.imageStyle} source={{uri: pickedImage}} />;
+    }
 
     return (
         <View>
-            <View>
-
+            <View style={STYELS.imagePreview}>
+                {imagePreview}
             </View>
             <Button title="사진찍기" onPress={takeImageHandler}/>
         </View>
@@ -47,3 +57,19 @@ function ImagePicker() {
 };
 
 export default ImagePicker;
+
+const STYELS = StyleSheet.create({
+    imagePreview: {
+        width: '100%',
+        height: 200,
+        marginVertical: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.primary100,
+        borderRadius: 4,
+    },
+    imageStyle: {
+        width: '100%',
+        height: '100%'
+    }
+});
