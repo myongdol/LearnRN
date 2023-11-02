@@ -4,12 +4,14 @@ import { Colors } from "../../constants/colors";
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from "expo-location";
 import { useState } from "react";
 import { getMapPreview } from "../../Util/location";
+import { useNavigation } from '@react-navigation/native';
 
 
 
 function LocationPicker() {
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
     const [pickedLocation, setPickedLocation] = useState();
+    const navigation = useNavigation();
 
     async function verifyPermissions() {
         if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -42,7 +44,7 @@ function LocationPicker() {
     };
 
     function pickOnMapHandler() {
-
+        navigation.navigate('Map');
     };
 
     let locationPreview = <Text>위치정보가 아직 없습니다.</Text>
