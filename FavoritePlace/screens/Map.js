@@ -11,7 +11,7 @@ function Map({navigation}) {
     const region = {
         latitude: 37.78,
         longitude: -122.43,
-        lititudeDelta: 0.0922,
+        latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     };
 

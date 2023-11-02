@@ -5,7 +5,7 @@ import { Colors } from "../../constants/colors";
 import OutlineButton from "../UI/OutlineButton";
 
 
-function ImagePicker() {
+function ImagePicker({onTakeImage}) {
     const [pickedImage, setPickedImage] = useState();
     const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
 
@@ -39,6 +39,7 @@ function ImagePicker() {
        });
 
        setPickedImage(image.uri);
+       onTakeImage(image.uri);
     };
 
     let imagePreview = <Text>촬영된 사진이 없습니다.</Text>;
