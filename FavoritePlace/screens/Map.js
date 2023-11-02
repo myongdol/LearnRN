@@ -28,7 +28,7 @@ function Map({navigation}) {
             return;
         };
         
-        navigation.navigate('AddPlace', {
+        navigation.navigate('장소추가', {
             pickedLat: selectedLocation.lat,
             pickedLng: selectedLocation.lng,
         });
