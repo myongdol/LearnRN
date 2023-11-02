@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { useCallback, useLayoutEffect, useState } from 'react';
+import { Alert, StyleSheet } from 'react-native';
 import MapView, { Marker } from'react-native-maps';
+import IconButton from '../components/UI/IconButton';
 
 
-function Map() {
+
+function Map({navigation}) {
     const [selectedLocation, setSelectedLocation] = useState();
 
     const region = {
@@ -18,7 +20,32 @@ function Map() {
         const lng = event.nativeEvent.coordinate.longitude;
 
         setSelectedLocation({lat: lat, lng: lng});
-    }
+    };
+
+    const savePickedLoaction = useCallback(() => {
+        if(!selectedLocation) {
+            Alert.alert('선택된 위치가 없습니다!','위치를 선택 해주세요!!');
+            return;
+        };
+        
+        navigation.navigate('AddPlace', {
+            pickedLat: selectedLocation.lat,
+            pickedLng: selectedLocation.lng,
+        });
+    }, [navigation, selectedLocation]);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: ({tintColor}) => (
+            <IconButton 
+                icon="save"
+                size={24} 
+                color={tintColor} 
+                onPress={savePickedLoaction} 
+            />
+            )
+        });
+    }, [navigation, savePickedLoaction])
 
     return (
         <MapView
