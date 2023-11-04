@@ -7,14 +7,15 @@ function PlacesList({places}) {
 
     if(!places || places.length === 0) {
         return (
-            <View style={styles.fallbackContainer}>
-                <Text style={styles.fallbackText}>추가된 장소가 없습니다.</Text>
+            <View style={STYLES.fallbackContainer}>
+                <Text style={STYLES.fallbackText}>추가된 장소가 없습니다.</Text>
             </View>
         )
     }
 
     return (
         <FlatList 
+        style={STYLES.list}
             data={places}
             keyExtractor={(item) => item.id}
             renderItem={({item}) => <PlaceItem place={item}/>} 
@@ -24,7 +25,7 @@ function PlacesList({places}) {
 
 export default PlacesList;
 
-const styles = StyleSheet.create({
+const STYLES = StyleSheet.create({
     fallbackContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -34,4 +35,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: Colors.primary200,
     },
+    list: {
+        margin: 24,
+    }
 });
