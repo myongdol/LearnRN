@@ -6,11 +6,29 @@ import AddPlace from './screens/AddPlace';
 import IconButton from './components/UI/IconButton';
 import { Colors } from './constants/colors';
 import Map from './screens/Map';
+import { useEffect, useState } from 'react';
+import AppLoading from 'expo-app-loading';
+import { init } from './Util/database';
 
 
 const STACK = createNativeStackNavigator();
 
 export default function App() {
+  const [dbInit, setDbInit] = useState(false);
+
+  useEffect(() => {
+    init().then(() => {
+      setDbInit(true);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },[]);
+
+  if (!dbInit) {
+    return <AppLoading />;
+  }
+
+
   return (
     <>
       <StatusBar style='dark' />
