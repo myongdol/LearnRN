@@ -45,7 +45,7 @@ function Map({navigation}) {
             />
             )
         });
-    }, [navigation, savePickedLoaction])
+    }, [navigation, savePickedLoaction]);
 
     return (
         <MapView

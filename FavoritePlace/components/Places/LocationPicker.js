@@ -3,7 +3,7 @@ import OutlineButton from "../UI/OutlineButton";
 import { Colors } from "../../constants/colors";
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from "expo-location";
 import { useEffect, useState } from "react";
-import { getMapPreview } from "../../Util/location";
+import { getAddress, getMapPreview } from "../../Util/location";
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 
 
@@ -26,7 +26,13 @@ function LocationPicker({onPickLocation}) {
     }, [route, isFocused]);
 
     useEffect(() => {
-        onPickLocation(pickedLocation);
+        async function handleLocation() {
+            if (pickedLocation) {
+                const address = await getAddress(pickedLocation.lat, pickedLocation.lng);
+                onPickLocation({...pickedLocation, address: address});
+            };
+        };
+        handleLocation();
     }, [pickedLocation, onPickLocation])
 
 
@@ -68,7 +74,7 @@ function LocationPicker({onPickLocation}) {
     if (pickedLocation) {
         locationPreview = (
             <Image
-                style={STYELS.mapImage} 
+                style={STYLES.mapImage} 
                 source={{uri: getMapPreview(pickedLocation.lat, pickedLocation.lng)}}
             />
         )
@@ -76,10 +82,10 @@ function LocationPicker({onPickLocation}) {
 
     return (
         <View>
-            <View style={STYELS.mapPreview}>
+            <View style={STYLES.mapPreview}>
                 {locationPreview}
             </View>
-            <View style={STYELS.actions}>
+            <View style={STYLES.actions}>
                 <OutlineButton 
                     icon="location"
                     onPress={getLocationHander}
@@ -101,7 +107,7 @@ export default LocationPicker;
 
 
 
-const STYELS = StyleSheet.create({
+const STYLES = StyleSheet.create({
     mapPreview: {
         width: '100%',
         height: 200,
