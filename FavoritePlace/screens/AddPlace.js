@@ -1,9 +1,15 @@
 import PlaceForm from "../components/Places/PlaceForm";
 
 
-function AddPlace() {
+function AddPlace({navigation}) {
+    function createPlaceHandler(place) {
+        navigation.navigate('모든장소', {
+            place: place
+        });
+    };
+    
     return (
-        <PlaceForm />
+        <PlaceForm onCreatePlace={createPlaceHandler} />
     )
 };
 
