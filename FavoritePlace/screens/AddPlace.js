@@ -1,11 +1,18 @@
+import { insertPlace } from "../Util/database";
 import PlaceForm from "../components/Places/PlaceForm";
 
 
 function AddPlace({navigation}) {
-    function createPlaceHandler(place) {
-        navigation.navigate('모든장소', {
-            place: place
-        });
+    async function createPlaceHandler(place) {
+        try {
+            const result = await insertPlace(place);
+            console.log('Place 생성:', result);
+            navigation.navigate('모든장소', {
+                place: place
+            });
+        } catch (error) {
+            console.error('Error 생성 실패:', error);
+        };
     };
     
     return (
