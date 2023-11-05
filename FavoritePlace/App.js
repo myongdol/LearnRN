@@ -9,6 +9,7 @@ import Map from './screens/Map';
 import { useEffect, useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import { init } from './Util/database';
+import { PlaceDetails } from './screens/PlaceDetails';
 
 
 const STACK = createNativeStackNavigator();
@@ -57,6 +58,7 @@ export default function App() {
             title: '장소를 추가하세요.',
           }} />
           <STACK.Screen name="Map" component={Map} />
+          <STACK.Screen name="상세보기" component={PlaceDetails} />
         </STACK.Navigator>
       </NavigationContainer>
     </>

@@ -5,7 +5,7 @@ function PlaceItem({place, onSelect}) {
     return (
         <Pressable 
           style={({pressed}) => [STYLES.item, pressed && STYLES.pressed]} 
-          onPress={onSelect}
+          onPress={onSelect.bind(this, place.id)}
         >
             <Image 
                 style={STYLES.image}
