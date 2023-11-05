@@ -58,7 +58,9 @@ export default function App() {
             title: '장소를 추가하세요.',
           }} />
           <STACK.Screen name="Map" component={Map} />
-          <STACK.Screen name="상세보기" component={PlaceDetails} />
+          <STACK.Screen name="상세보기" component={PlaceDetails} options={{
+            title: '로딩중..'
+          }}/>
         </STACK.Navigator>
       </NavigationContainer>
     </>

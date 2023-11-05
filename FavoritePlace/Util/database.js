@@ -53,6 +53,7 @@ export function insertPlace(place) {
     return promise;
 };
 
+
 export function fetchPlaces() {
     const promise = new Promise((resolve, reject) => {
         database.transaction((tx) => {
@@ -79,6 +80,27 @@ export function fetchPlaces() {
                     reject(error);
                 },
             );
-        })
-    })
+        });
+    });
+    return promise;
+};
+
+
+export function fetchPlaceDetails(id) {
+    const promise = new Promise((resolve, reject) => {
+        database.transaction((tx) => {
+            tx.executeSql(
+                'SELECT * FROM places WHERE id = ?',
+                [id], 
+                (_, result) => {
+                    resolve(result);
+                },
+                (_, error) => {
+                    reject(error);
+                },
+                );
+        });
+    });
+
+    return promise;
 };

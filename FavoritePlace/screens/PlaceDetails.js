@@ -1,11 +1,13 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import OutlineButton from "../components/UI/OutlineButton";
 import { Colors } from "../constants/colors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 
-export function PlaceDetails({route}) {
+export function PlaceDetails({route, navigation}) {
+    const [fetchPlace, setFetchPlace] = useState();
+
     function showOnMapHandler() {
 
     };
@@ -13,16 +15,30 @@ export function PlaceDetails({route}) {
     const selectedPlaceId = route.params.placeId;
 
     useEffect(() => {
-
+        async function loadPlaceData() {
+           const place = await fetchedPlaceDetails(selectedPlaceId);
+           setFetchPlace(place);
+           navigation.setOptions({
+            title: place.title,
+           });
+        }
+        loadPlaceData();
     }, [selectedPlaceId]);
 
+    if(!fetchPlace) {
+        return (
+            <View style={STYLES.fallback}>
+                <Text>데이터 불러오는중...</Text>
+            </View>
+        )
+    }
 
     return (
     <ScrollView>
-        <Image style={STYLES.image} />
+        <Image style={STYLES.image} source={{uri: fetchPlace.imageUri}}/>
         <View style={STYLES.locationContainer}>
             <View style={STYLES.addressContainer}>
-                <Text style={STYLES.address}>주소</Text>
+                <Text style={STYLES.address}>{fetchedPlace.location.address}</Text>
             </View>
             <OutlineButton
                 icon="map"
@@ -56,5 +72,9 @@ const STYLES = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         fontSize: 18
+    },
+    fallback: {
+        flex: 1,
+        justifyContent: 'center'
     }
 });
