@@ -9,7 +9,10 @@ export function PlaceDetails({route, navigation}) {
     const [fetchPlace, setFetchPlace] = useState();
 
     function showOnMapHandler() {
-
+        navigation.navigate('Map', {
+            initialLat: fetchPlace.location.lat,
+            initialLng: fetchPlace.location.lng,
+        });
     };
 
     const selectedPlaceId = route.params.placeId;
