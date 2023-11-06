@@ -53,5 +53,7 @@
   <string>UIStatusBarStyleDefault</string>
   <key>CADisableMinimumFrameDurationOnPhone</key>
   <true/>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>위치정보 확인이 필요합니다.</string>
 </dict>
 </plist>
