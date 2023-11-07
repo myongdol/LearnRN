@@ -48,6 +48,7 @@ function DrawerNavigator() {
   )
 };
 
+//bare
 
 export default function App() {
   return (
