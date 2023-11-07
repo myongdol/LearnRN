@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "RNCourse",
-    "slug": "RNCourse",
-    "version": "1.0.0",
+    "name": "Food Recipt App",
+    "slug": "RN Prac",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "backgroundColor": "#24180f",
@@ -18,9 +18,11 @@
       "**/*"
     ],
     "ios": {
+      "buildNumber": "1.0.1",
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
