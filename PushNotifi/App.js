@@ -3,6 +3,16 @@ import { Button } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import * as Notifications from 'expo-notifications';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+      shouldShowAlert: true
+    };
+  }
+});
+
 
 export default function App() {
   function notifiHandler() {
